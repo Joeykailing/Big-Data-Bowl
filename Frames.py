@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import warnings
 
-def getTrimmedCSV(df):
+def getTrimmedCSV():
+    df = pd.read_csv("Tracking Week 1 - Colts @ Texans.csv") ## we can replace this with the big one when we are ready, just have to add another loop to go by games and then by weeks
     
     grouped = df.groupby(['gameId', 'playId'])
     
@@ -44,7 +45,10 @@ def getTrimmedCSV(df):
     
     return df_trimmed
 
-    df = getTrimmedCSV()
+df = getTrimmedCSV()
+
+playIds = df["playId"].unique()
+
 
 def getFrames():
     
@@ -72,18 +76,6 @@ def getFrames():
             frames[i].append(matrix)
             
             return frames
+        
 
-
-df_main = pd.read_csv("tracking_week_1.csv")
-
-gameIDs = df_main["gameId"].unique()
-
-for j in range(len(gameIDs)):
-    
-    gameId = gameIDs[j]
-    
-    df = df_main[df_main["gameId"] == gameId]
-
-    playIds = df["playId"].unique()
-
-    frames = getFrames()
+frames = getFrames()
